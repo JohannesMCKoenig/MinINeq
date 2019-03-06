@@ -11,7 +11,7 @@ S=sum(G);
 
 e=0;
 for i = (lt+1):length(y)
-    e=e+(w(i)*w((i+1):length(y)).*abs(yt(i)-yt((i+1):length(y))));
+    e=e+sum(w(i)*w((i+1):length(y)).*abs(yt(i)-yt((i+1):length(y))));
 end
 
 %objective function 
@@ -21,3 +21,6 @@ f=S+z*e;
 gradf=[e;sparse(lt,1);ones(lL,1)];
 
 end
+
+
+

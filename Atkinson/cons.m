@@ -1,8 +1,8 @@
-function [c,ceq] = cons(y,w,es,x,k,b)
+function [c,ceq] = cons(y,w,es,x,k,b,pw)
 %Constraints for the optimization
 
 %generate the mean and the vector with transfers
-m=sum(w.*(es.^-1.*(y+x)))/sum(w)
+m=sum(w.*(es.^-1.*(y+x)))/sum(w);
 yt=es.^-1.*(y+x);
 
 %inequality aversion
@@ -15,9 +15,9 @@ for i = 1:length(y)
 end
 
 %sublevel set constraint
-c=[c;-(S)^(1/(1-eps)-(k-1)*m];
+c=[-(S)^(1/(1-eps))-(k-1)*m];
 %budget constraint
-c=[c;sum(t)-b];
+c=[c;sum(pw.*x)-b];
 ceq=[];
 
 end

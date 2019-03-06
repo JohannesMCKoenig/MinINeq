@@ -18,7 +18,7 @@ for i=1:lt
     
     else 
     
-         %derivatives in previous differences   
+        %derivatives in previous differences   
         for j=1:(i-1)
             
             if i==2
@@ -36,7 +36,7 @@ for i=1:lt
         
     end 
     
-    %add derivative from budget  
+    %add derivative from budget
     dc_temp=[pw(i);dc_temp];
     dc=[dc,dc_temp];
      
@@ -92,3 +92,7 @@ dceq=[K;pw(1:lt);sparse(ltL,1)];
 dc=[dc,dceq];
 
 end
+
+
+
+

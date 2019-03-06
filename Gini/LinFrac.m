@@ -1,11 +1,11 @@
 function [ minGini ] = LinFrac(y,es,w,pw,b,lt)
 %Linear Fractional Program
+%   
 
 %generate derivatives of constraints
 Dc=dc(y,w,pw,es,b,lt);
 save('DC.mat','Dc');
 clear Dc;
-%number of new variables Delta_ij
 lL=lt*length(y)-((lt+1)*lt)/2;
 
 %starting values and bounds
@@ -22,8 +22,8 @@ clear Dc
 %optimization options
 opts=optimoptions('fmincon','Algorithm','interior-point','GradObj','on','GradConstr','on',...
 'Hessian','user-supplied','HessFcn',@(x,lambda)HessF(x,lambda),'UseParallel',true,...
-'Display','final','MaxIter',5000,'MaxFunEvals',1000000,...
-'ScaleProblem','none',...
+'Display','iter','MaxIter',5000,'MaxFunEvals',1000000,...
+'ScaleProblem','obj-and-constr',...
 'TolFun',10^(-20),'TolCon',10^(-15),'TolX',10^(-20));
 
 %optimization
@@ -34,10 +34,11 @@ z=x(1);
 trans=[z^(-1)*x(2:lt+1);zeros(length(y)-lt,1)];
 postdist=es.^-1.*(y+trans);
 
-%optimal values of Gini
+format long
 cand=double(MGC(y,w,es,trans))
+sum(trans)
 
-
-minGini=cand;
+minGini=trans;
 
 end
+
